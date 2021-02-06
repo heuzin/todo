@@ -43,12 +43,17 @@ const renderTodos = (todos, filters) => {
 
 renderTodos(todos, filters)
 
-// Listen for todo text change
-document.querySelector('#new-todo-text').addEventListener('input', e => {
-    console.log(e.target.value)
-})
-
 document.querySelector('#search-todo').addEventListener('input', e => {
     filters.searchText = e.target.value
     renderTodos(todos, filters)
+})
+
+document.querySelector('#new-todo').addEventListener('submit', e => {
+    e.preventDefault()
+    todos.push({
+        text: e.target.elements.text.value,
+        completed: false
+    })
+    renderTodos(todos, filters)
+    e.target.elements.text.value = ''
 })
