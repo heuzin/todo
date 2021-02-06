@@ -28,3 +28,8 @@ todos.forEach((todo) => {
     todoEl.textContent = todo.text
     document.querySelector('body').appendChild(todoEl)
 })
+
+// Listen for todo text change
+document.querySelector('#new-todo-text').addEventListener('input', e => {
+    console.log(e.target.value)
+})
