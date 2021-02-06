@@ -15,21 +15,40 @@ const todos = [{
     completed: true
 }]
 
-const incompleteTodos = todos.filter((todo) => {
-    return !todo.completed
-})
+const filters = {
+    searchText: ''
+}
 
-const summary = document.createElement('h2')
-summary.textContent = `You have ${incompleteTodos.length} todos left`
-document.querySelector('body').appendChild(summary)
+const renderTodos = (todos, filters) => {
+    const filteredTodos = todos.filter((todo) => {
+        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+    })
 
-todos.forEach((todo) => {
-    const todoEl = document.createElement('p')
-    todoEl.textContent = todo.text
-    document.querySelector('body').appendChild(todoEl)
-})
+    document.querySelector('#todos').innerHTML = ''
+
+    const incompleteTodos = filteredTodos.filter((todo) => {
+        return !todo.completed
+    })
+    
+    const summary = document.createElement('h2')
+    summary.textContent = `You have ${incompleteTodos.length} todos left`
+    document.querySelector('#todos').appendChild(summary)
+    
+    filteredTodos.forEach((todo) => {
+        const todoEl = document.createElement('p')
+        todoEl.textContent = todo.text
+        document.querySelector('#todos').appendChild(todoEl)
+    })
+}
+
+renderTodos(todos, filters)
 
 // Listen for todo text change
 document.querySelector('#new-todo-text').addEventListener('input', e => {
     console.log(e.target.value)
+})
+
+document.querySelector('#search-todo').addEventListener('input', e => {
+    filters.searchText = e.target.value
+    renderTodos(todos, filters)
 })
