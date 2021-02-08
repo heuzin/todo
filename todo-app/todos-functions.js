@@ -3,9 +3,9 @@ const getSavedNotes = () => {
     // check local storage
     const todosJSON = localStorage.getItem('todos')
 
-    if (todosJSON !== null) {
+    try {
         return JSON.parse(todosJSON)
-    }else {
+    } catch(e) {
         return []
     }
 }
