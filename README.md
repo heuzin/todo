@@ -1,3 +1,3 @@
 # Todo App
 
-![GitHub Logo](/public/app-image.png)
+![GitHub Logo](/images/app-image.png)
