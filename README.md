@@ -2,7 +2,7 @@
 
 This is a sample JavaScript todo app done step-by-step.
 
-Check the demo hosted on .
+Check the demo hosted on https://td-app-js.netlify.app/.
 
 ---
 
@@ -36,4 +36,4 @@ $ live-server
 
 ## Screenshot
 
-![GitHub Logo](/todo-app/images/app-image.png)
+![GitHub Logo](/images/app-image.png)
