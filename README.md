@@ -4,6 +4,7 @@ This is a sample JavaScript todo app done step-by-step.
 
 Check the demo hosted on .
 
+---
 
 ## Instructions
 
@@ -21,5 +22,18 @@ Run it
 ```bash
 $ live-server /todo-app
 ```
+
+
+## Features
+
+- Create a task
+- Mark as completed
+- Delete a task
+- Filter Todo
+- Hide Completed
+- Data saved through local storage
+
+
+## Screenshot
 
 ![GitHub Logo](/todo-app/images/app-image.png)
