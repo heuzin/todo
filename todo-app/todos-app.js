@@ -1,4 +1,4 @@
-let todos = getSavedNotes()
+let todos = getSavedTodos()
 
 const filters = {
     searchText: '',

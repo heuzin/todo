@@ -1,25 +1,24 @@
-// check for todos in localStorage
-const getSavedNotes = () => {
-    // check local storage
+'use strict'
+
+// Fetch existing todos from localStorage
+const getSavedTodos = () => {
     const todosJSON = localStorage.getItem('todos')
 
     try {
-        return JSON.parse(todosJSON)
-    } catch(e) {
+        return todosJSON ? JSON.parse(todosJSON) : []
+    } catch (e) {
         return []
     }
 }
 
-// save todos to localStorage
+// Save todos to localStorage
 const saveTodos = (todos) => {
     localStorage.setItem('todos', JSON.stringify(todos))
 }
 
-// Remove a todo function
+// Remove todo by id
 const removeTodo = (id) => {
-    const todoIndex = todos.findIndex((todo) => {
-        return todo.id === id
-    })
+    const todoIndex = todos.findIndex((todo) => todo.id === id)
 
     if (todoIndex > -1) {
         todos.splice(todoIndex, 1)
@@ -28,16 +27,33 @@ const removeTodo = (id) => {
 
 // Toggle the completed value for a given todo
 const toggleTodo = (id) => {
-    const todo = todos.find((todo) => {
-        return todo.id === id
-    })
+    const todo = todos.find((todo) => todo.id === id)
 
-    if (todo !== undefined) {
+    if (todo) {
         todo.completed = !todo.completed
     }
 }
 
-// Generate the DOM structure for a todo
+// Render application todos based on filters
+const renderTodos = (todos, filters) => {
+    const filteredTodos = todos.filter((todo) => {
+        const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+        const hideCompletedMatch = !filters.hideCompleted || !todo.completed
+        
+        return searchTextMatch && hideCompletedMatch
+    })
+
+    const incompleteTodos = filteredTodos.filter((todo) => !todo.completed)
+
+    document.querySelector('#todos').innerHTML = ''
+    document.querySelector('#todos').appendChild(generateSummaryDOM(incompleteTodos))
+
+    filteredTodos.forEach((todo) => {
+        document.querySelector('#todos').appendChild(generateTodoDOM(todo))
+    })
+}
+
+// Get the DOM elements for an individual note
 const generateTodoDOM = (todo) => {
     const todoEl = document.createElement('div')
     const checkbox = document.createElement('input')
@@ -46,7 +62,7 @@ const generateTodoDOM = (todo) => {
 
     // Setup todo checkbox
     checkbox.setAttribute('type', 'checkbox')
-    checkbox.checked = todo.completed 
+    checkbox.checked = todo.completed
     todoEl.appendChild(checkbox)
     checkbox.addEventListener('change', () => {
         toggleTodo(todo.id)
@@ -70,38 +86,9 @@ const generateTodoDOM = (todo) => {
     return todoEl
 }
 
+// Get the DOM elements for list summary
 const generateSummaryDOM = (incompleteTodos) => {
     const summary = document.createElement('h2')
     summary.textContent = `You have ${incompleteTodos.length} todos left`
-
     return summary
-}
-
-// render application todos based on filters
-const renderTodos = (todos, filters) => {
-    let filteredTodos = todos.filter((todo) => {
-        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
-    })
-
-    filteredTodos = filteredTodos.filter((todo) => {
-        if (filters.hideCompleted) {
-            return !todo.completed
-        } else {
-            return true
-        }
-    })
-
-    document.querySelector('#todos').innerHTML = ''
-
-    const incompleteTodos = filteredTodos.filter((todo) => {
-        return !todo.completed
-    })
-    
-    const summary = generateSummaryDOM(incompleteTodos)
-    document.querySelector('#todos').appendChild(summary)
-    
-    filteredTodos.forEach((todo) => {
-        const todoEl = generateTodoDOM(todo)
-        document.querySelector('#todos').appendChild(todoEl)
-    })
 }
