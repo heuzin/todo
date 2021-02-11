@@ -20,7 +20,7 @@ $ npm install # or yarn
 
 Run it
 ```bash
-$ live-server /todo-app
+$ live-server
 ```
 
 
