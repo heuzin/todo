@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4'
+import { v4 as uuidv4 } from 'uuid'
 
 let todos = []
 
@@ -29,6 +29,25 @@ const createTodo = (text) => {
     saveTodos()
 }
 
+const removeTodo = (id) => {
+    const todoIndex = todos.findIndex((todo) => todo.id === id)
+
+    if (todoIndex > -1) {
+        todos.splice(todoIndex, 1)
+        saveTodos()
+    }
+}
+
+// Toggle the completed value for a given todo
+const toggleTodo = (id) => {
+    const todo = todos.find((todo) => todo.id === id)
+
+    if (todo) {
+        todo.completed = !todo.completed
+        saveTodos()
+    }
+}
+
 loadTodos()
 
-export { getTodos, saveTodos, createTodo }
+export { getTodos, saveTodos, createTodo, removeTodo, toggleTodo }
