@@ -1,6 +1,6 @@
 import { renderTodos } from './views'
 import { setFilters } from './filters'
-import { createTodo } from './todos'
+import { createTodo, loadTodos } from './todos'
 
 renderTodos()
 
@@ -28,4 +28,11 @@ document.querySelector('#hide-completed').addEventListener('change', e => {
         hideCompleted: e.target.checked
     })
     renderTodos()
+})
+
+window.addEventListener('storage', (e) => {
+    if (e.key === ' todos') {
+        loadTodos()
+        renderTodos()
+    }
 })

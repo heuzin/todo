@@ -50,4 +50,4 @@ const toggleTodo = (id) => {
 
 loadTodos()
 
-export { getTodos, saveTodos, createTodo, removeTodo, toggleTodo }
+export { loadTodos, getTodos, saveTodos, createTodo, removeTodo, toggleTodo }
