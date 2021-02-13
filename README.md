@@ -36,4 +36,4 @@ $ live-server
 
 ## Screenshot
 
-![GitHub Logo](/images/app-image.png)
+![GitHub Logo](/public/images/app-image.png)
